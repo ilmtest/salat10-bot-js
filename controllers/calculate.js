@@ -4,25 +4,13 @@ const geocoder = require("../utils/geocoder");
 const salatCalculator = require("../utils/salatCalculator");
 const axios = require("axios");
 
-const extractTime = data => data.toString();
+const extractTime = data => data.getTime();
 
-/**
- * @desc Calculates prayer times for a specific address.
- * @route GET /api/v1/calculate
- * @access Public
- */
-exports.calculateForAddress = asyncHandler(async (req, res, next) => {
-  const { address } = req.query;
-
-  if (!address) {
-    return next(new ErrorResponse(`Address ${req.params.id} not found`, 403));
-  }
-
-  const [{ latitude, longitude }] = await geocoder.geocode(address);
+const calculateForCoordinates = async (latitude, longitude) => {
   const {
-    data: { timestamp }
+    data: { timestamp, zoneName, gmtOffset, dst }
   } = await axios.get(
-    `${process.env.TIMEZONE_API_GATEWAY}/v2.1/get-time-zone?key=${process.env.TIMEZONE_API_KEY}&format=json&by=position&lat=${latitude}&lng=${longitude}`
+    `https://api.timezonedb.com/v2.1/get-time-zone?key=${process.env.TIMEZONE_API_KEY}&format=json&by=position&lat=${latitude}&lng=${longitude}`
   );
 
   const now = new Date(timestamp * 1000);
@@ -45,17 +33,49 @@ exports.calculateForAddress = asyncHandler(async (req, res, next) => {
   const diff = tomorrow.fajr.getTime() - today.maghrib.getTime();
   const lastThirdNight = new Date(tomorrow.fajr.getTime() - diff / 3);
 
+  return {
+    zoneName,
+    gmtOffset,
+    dst,
+    fajr: extractTime(today.fajr),
+    sunrise: extractTime(today.sunrise),
+    dhuhr: extractTime(today.dhuhr),
+    asr: extractTime(today.asr),
+    maghrib: extractTime(today.maghrib),
+    isha: extractTime(today.isha),
+    halfNight: extractTime(halfNight),
+    lastThirdNight: extractTime(lastThirdNight)
+  };
+};
+
+const getCoordinates = async (req, next) => {
+  const { address, latitude, longitude } = req.query;
+
+  if (!address && !latitude && !longitude) {
+    return next(
+      new ErrorResponse(`Address & coordinates ${req.params.id} not found`, 403)
+    );
+  }
+
+  if (latitude && longitude) {
+    return Promise.resolve({ latitude, longitude });
+  }
+
+  const [result] = await geocoder.geocode(address);
+  return { latitude: result.latitude, longitude: result.longitude };
+};
+
+/**
+ * @desc Calculates prayer times for a specific address.
+ * @route GET /api/v1/calculate
+ * @access Public
+ */
+exports.calculateForAddress = asyncHandler(async (req, res, next) => {
+  const { latitude, longitude } = await getCoordinates(req, next);
+  const data = await calculateForCoordinates(latitude, longitude);
+
   res.json({
     success: true,
-    data: {
-      fajr: extractTime(today.fajr),
-      sunrise: extractTime(today.sunrise),
-      dhuhr: extractTime(today.dhuhr),
-      asr: extractTime(today.asr),
-      maghrib: extractTime(today.maghrib),
-      isha: extractTime(today.isha),
-      halfNight: extractTime(halfNight),
-      lastThirdNight: extractTime(lastThirdNight)
-    }
+    data
   });
 });

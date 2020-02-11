@@ -5,7 +5,7 @@ const colors = require("colors");
 const helmet = require("helmet");
 
 // load environment variables
-dotenv.config({ path: "./config/config.env" });
+dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
