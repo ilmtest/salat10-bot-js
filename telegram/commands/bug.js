@@ -1,6 +1,6 @@
-const analytics = require("../utils/analytics");
+const analytics = require("../../utils/analytics");
 
-const onBug = async context => {
+const onBug = context => {
   console.log("Bug report command received");
   const { message_id, text } = context.message;
   const tokens = text.split(" ");
@@ -13,14 +13,14 @@ const onBug = async context => {
     const message = tokens.slice(1).join(" ");
 
     console.log("Bug report sent to author.");
-    await context.telegram.sendMessage(
+    context.telegram.sendMessage(
       process.env.CONTACT_CHAT_ID,
       `username: @${context.from.username}\nchat_id: ${context.chat.id}\nmessage_id: ${message_id}\nmessage: ${message}`
     );
   }
 
   console.log(`Replying to user with bug response: ${reply}`);
-  await context.replyWithMarkdown(reply, {
+  context.replyWithMarkdown(reply, {
     reply_to_message_id: message_id
   });
 
@@ -35,6 +35,10 @@ const onBug = async context => {
   });
 };
 
-const bugCommand = bot => bot.command("bug", onBug);
+const bugCommand = bot => {
+  bot.onText(/^\/bug (.+)/, (message, match) => {
+    console.log("*** match", match);
+  });
+};
 
 module.exports = bugCommand;
