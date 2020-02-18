@@ -1,43 +1,28 @@
 const analytics = require("../../utils/analytics");
 
-const onBug = context => {
-  console.log("Bug report command received");
-  const { message_id, text } = context.message;
-  const tokens = text.split(" ");
-  const reply =
-    tokens.length > 1
-      ? "✅ Your message was successfully sent"
-      : "⚠️ Write your message after /bug\n\nFor example:\n`/bug The app is not working for me`";
-
-  if (tokens.length > 1) {
-    const message = tokens.slice(1).join(" ");
-
-    console.log("Bug report sent to author.");
-    context.telegram.sendMessage(
-      process.env.CONTACT_CHAT_ID,
-      `username: @${context.from.username}\nchat_id: ${context.chat.id}\nmessage_id: ${message_id}\nmessage: ${message}`
-    );
-  }
-
-  console.log(`Replying to user with bug response: ${reply}`);
-  context.replyWithMarkdown(reply, {
-    reply_to_message_id: message_id
-  });
-
-  console.log("Replied to user, sending analytics");
-
-  analytics.track({
-    userId: context.from.id.toString(),
-    event: "bug",
-    properties: {
-      messageLength: text.length
-    }
-  });
-};
-
 const bugCommand = bot => {
-  bot.onText(/^\/bug (.+)/, (message, match) => {
-    console.log("*** match", match);
+  bot.onText(/^\/bug (.+)/, (message, [withCommand, withoutCommand]) => {
+    console.log("Bug report command received");
+
+    bot.sendMessage(
+      process.env.CONTACT_CHAT_ID,
+      `username: @${message.from.username}\nchat_id: ${context.chat.id}\nmessage_id: ${message.message_id}\nmessage: ${withoutCommand}`
+    );
+
+    console.log(`Replying to user with bug response: ${reply}`);
+    bot.sendMessage(message.chat.id, "✅ Your message was successfully sent", {
+      reply_to_message_id: message.message_id
+    });
+
+    console.log("Replied to user, sending analytics");
+
+    analytics.track({
+      userId: message.from.id.toString(),
+      event: "bug",
+      properties: {
+        messageLength: withoutCommand.length
+      }
+    });
   });
 };
 
