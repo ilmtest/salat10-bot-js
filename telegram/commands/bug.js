@@ -9,7 +9,7 @@ const bugCommand = bot => {
       `username: @${message.from.username}\nchat_id: ${message.chat.id}\nmessage_id: ${message.message_id}\nmessage: ${withoutCommand}`
     );
 
-    console.log(`Replying to user with bug response: ${reply}`);
+    console.log(`Replying to user with bug response: ${withoutCommand}`);
     bot.sendMessage(message.chat.id, "✅ Your message was successfully sent", {
       reply_to_message_id: message.message_id
     });
