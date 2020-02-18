@@ -1,12 +1,15 @@
 const analytics = require("../../utils/analytics");
+const fs = require("fs");
 
 const helpCommand = bot => {
   bot.onText(/^\/help$/, message => {
+    const buffer = fs.readFileSync("res/tutorial.gif");
+
     console.log("Replying to user with help command");
     bot.sendChatAction(message.chat.id, "upload_video");
     bot.sendAnimation(
       message.chat.id,
-      { source: "res/tutorial.gif" },
+      buffer,
       {
         caption: `Note that Salat10 uses the nautical twilight to calculate the Fajr and ʿIshāʾ timings instead of the conventional varying angles that are used by the various organizations around the world.
   
