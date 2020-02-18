@@ -1,9 +1,10 @@
-const express = require("express");
 require("dotenv").config();
-const morgan = require("morgan");
-const colors = require("colors");
-const helmet = require("helmet");
+
 const TelegramBot = require("node-telegram-bot-api");
+
+const express = require("express");
+const morgan = require("morgan");
+const helmet = require("helmet");
 
 const { BOT_API_KEY, HEROKU_APP_URL } = process.env;
 
@@ -21,7 +22,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use("/api/v1/calculate", require("./routes/calculate"));
-
 app.use(require("./middleware/error")); // error handler
 
 app.post(`/bot${BOT_API_KEY}`, (req, res) => {
@@ -42,6 +42,10 @@ process.on("unhandledRejection", (err, promise) => {
   server.close(() => process.exit(1));
 });
 
+require("./telegram/user")(bot);
+
+/*
 bot.on("message", msg => {
   bot.sendMessage(msg.chat.id, "I am alive!");
 });
+*/
