@@ -54,9 +54,11 @@ Note: Please read the Help before filing any bugs of incorrect timings.
   });
 };
 
-const startCommand = bot =>
+const startCommand = bot => {
+  console.log("*** registering...");
   bot.onText(/^\/start$/, msg => {
     console.log("*** msg", msg);
   });
+};
 
 module.exports = startCommand;
