@@ -6,7 +6,7 @@ const bugCommand = bot => {
 
     bot.sendMessage(
       process.env.CONTACT_CHAT_ID,
-      `username: @${message.from.username}\nchat_id: ${context.chat.id}\nmessage_id: ${message.message_id}\nmessage: ${withoutCommand}`
+      `username: @${message.from.username}\nchat_id: ${message.chat.id}\nmessage_id: ${message.message_id}\nmessage: ${withoutCommand}`
     );
 
     console.log(`Replying to user with bug response: ${reply}`);
