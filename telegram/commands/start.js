@@ -3,7 +3,8 @@ const analytics = require("../../utils/analytics");
 const startCommand = bot => {
   bot.onText(/^\/start$/, msg => {
     console.log("Replying to user with start response");
-    await bot.sendMessage(msg.chat.id,
+    bot.sendMessage(
+      msg.chat.id,
       `\`${process.env.npm_package_name} v${process.env.npm_package_version}\` by @ilmtest
   
   Send this bot an address, or attach your location to it and it will reply back with the prayer times for that location.
@@ -49,7 +50,7 @@ const startCommand = bot => {
         }
       }
     );
-  
+
     analytics.track({
       userId: message.from.id.toString(),
       event: "start"
