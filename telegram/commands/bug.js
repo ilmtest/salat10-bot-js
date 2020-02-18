@@ -10,7 +10,7 @@ const bugCommand = bot => {
     );
 
     console.log(`Replying to user with bug response: ${withoutCommand}`);
-    bot.sendMessage(message.chat.id, "✅ Your message was successfully sent", {
+    /*bot.sendMessage(message.chat.id, "✅ Your message was successfully sent", {
       reply_to_message_id: message.message_id
     });
 
@@ -22,7 +22,7 @@ const bugCommand = bot => {
       properties: {
         messageLength: withoutCommand.length
       }
-    });
+    }); */
   });
 };
 
