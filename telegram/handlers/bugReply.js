@@ -8,7 +8,7 @@ const bugReply = bot => {
   bot.on(
     "text",
     async ({ reply_to_message, chat, text, date, message_id: replyId }) => {
-      if (chat.id !== process.env.CONTACT_CHAT_ID) {
+      if (chat.id.toString() !== process.env.CONTACT_CHAT_ID) {
         return;
       }
 

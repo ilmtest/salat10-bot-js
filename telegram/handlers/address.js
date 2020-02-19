@@ -5,7 +5,7 @@ const { formatAsText } = require("../../utils/eventFormatter");
 
 const addressHandler = bot => {
   bot.on("text", async ({ chat: { id: chatId }, from, message_id, text }) => {
-    if (chatId === process.env.CONTACT_CHAT_ID) {
+    if (chatId.toString() === process.env.CONTACT_CHAT_ID) {
       return;
     }
 
