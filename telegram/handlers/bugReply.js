@@ -34,6 +34,7 @@ const bugReply = bot => {
             bot.sendMessage(chatId, text);
 
             const now = Math.floor(Date.now() / 1000);
+            console.log("*** proeprties", (now - date).toString());
 
             analytics.track({
               userId: chatId,
