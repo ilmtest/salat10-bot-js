@@ -4,7 +4,6 @@ const calculator = require("../../utils/calculator");
 const { formatAsText } = require("../../utils/eventFormatter");
 
 const addressHandler = bot => {
-  console.log("*** handle address");
   bot.on("text", async message => {
     const { text } = message;
     console.log(`Received new address: (${text})`);
