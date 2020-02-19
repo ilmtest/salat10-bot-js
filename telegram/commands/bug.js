@@ -1,7 +1,7 @@
 const analytics = require("../../utils/analytics");
 
 const bugCommand = bot => {
-  bot.onText(/^\/bug (.+)/, (message, [withCommand, withoutCommand]) => {
+  bot.onText(/^\/bug (.+)/, (message, [_, withoutCommand]) => {
     console.log("Bug report command received");
 
     bot.sendMessage(
