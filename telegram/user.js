@@ -3,10 +3,9 @@ const userMiddleware = bot => {
     require(`./commands/${command}`)(bot)
   );
 
-  const { locationHandler } = require("./handlers/location");
-  locationHandler(bot);
-
-  require("./handlers/address")(bot);
+  ["location", "address"].forEach(handler =>
+    require(`./handlers/${handler}`)(bot)
+  );
 };
 
 module.exports = userMiddleware;
