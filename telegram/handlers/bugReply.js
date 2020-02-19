@@ -12,6 +12,8 @@ const bugReply = bot => {
         return;
       }
 
+      console.log("* SDLKFJDS");
+
       const [chat_id, message_id] = reply_to_message.text
         .split("\n")
         .slice(1, 3);
@@ -19,11 +21,16 @@ const bugReply = bot => {
         value => value.split(": ")[1]
       );
 
+      console.log("* SDLKFJDS333");
+
       if (chatId && messageId) {
         try {
+          console.log("* SDLKFJDzzzS");
           await bot.sendMessage(chatId, text, {
             reply_to_message_id: messageId
           });
+
+          console.log("* SDLKFJDSffffww");
         } catch (error) {
           if (isReplyDeleted(error)) {
             console.warn(
