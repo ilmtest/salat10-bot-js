@@ -4,6 +4,7 @@ const { formatAsText } = require("../../utils/eventFormatter");
 
 const locationHandler = bot => {
   bot.on("location", async ({ location, chat, message_id, from }) => {
+    bot.sendChatAction(chat.id, "typing");
     const { latitude, longitude } = location;
     console.log(`Received new coordinates: (${latitude}, ${longitude})`);
     const result = calculator(latitude, longitude);
