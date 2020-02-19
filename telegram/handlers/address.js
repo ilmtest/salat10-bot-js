@@ -4,12 +4,11 @@ const calculator = require("../../utils/calculator");
 const { formatAsText } = require("../../utils/eventFormatter");
 
 const addressHandler = bot => {
-  bot.on("text", message => {
-    console.log("*** BOOM BOOMsdfzx BOOM BOOM");
-  });
-
   bot.on("text", async ({ chat: { id: chatId }, from, message_id, text }) => {
-    console.log("*** BOOM BOOM BOOM BOOM33333");
+    if (chatId === process.env.CONTACT_CHAT_ID) {
+      return;
+    }
+
     bot.sendChatAction(chatId, "typing");
     console.log(`Received new address: (${text})`);
 

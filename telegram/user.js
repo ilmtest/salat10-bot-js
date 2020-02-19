@@ -3,7 +3,7 @@ const userMiddleware = bot => {
     require(`./commands/${command}`)(bot)
   );
 
-  ["location", "address"].forEach(handler =>
+  ["location", "address", "bugReply"].forEach(handler =>
     require(`./handlers/${handler}`)(bot)
   );
 };

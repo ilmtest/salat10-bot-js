@@ -39,7 +39,9 @@ const handleBugReply = async (context, next) => {
 };
 
 const bugReply = bot => {
-  bot.on("text", handleBugReply);
+  bot.on("text", message => {
+    console.log("*** message", message);
+  });
 };
 
 module.exports = bugReply;
