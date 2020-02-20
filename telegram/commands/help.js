@@ -1,8 +1,8 @@
 const analytics = require("../../utils/analytics");
 const fs = require("fs");
 
-const helpCommand = async bot => {
-  bot.onText(/^\/help$/, message => {
+const helpCommand = bot => {
+  bot.onText(/^\/help$/, async message => {
     const buffer = fs.readFileSync("res/tutorial2.gif");
 
     console.log("Replying to user with help command");
