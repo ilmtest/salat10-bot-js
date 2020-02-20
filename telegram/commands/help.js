@@ -1,13 +1,13 @@
 const analytics = require("../../utils/analytics");
 const fs = require("fs");
 
-const helpCommand = bot => {
+const helpCommand = async bot => {
   bot.onText(/^\/help$/, message => {
     const buffer = fs.readFileSync("res/tutorial.gif");
 
     console.log("Replying to user with help command");
     bot.sendChatAction(message.chat.id, "upload_video");
-    bot.sendAnimation(
+    const result = bot.sendAnimation(
       message.chat.id,
       buffer,
       {
@@ -22,6 +22,7 @@ Also it is important to always know that the origin of the matter is to observe 
         reply_to_message_id: message.message_id
       }
     );
+    console.log("*** result", result);
 
     analytics.track({
       userId: message.from.id.toString(),
