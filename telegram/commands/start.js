@@ -7,7 +7,7 @@ const startCommand = bot => {
       message.chat.id,
       `\`${process.env.npm_package_name} v${process.env.npm_package_version}\` by @ilmtest
   
-  Send this bot an address, or attach your location to it and it will reply back with the prayer times for that location.
+  Send this bot an address using /address, or attach your location to it and it will reply back with the prayer times for that location.
   
   Submit bug reports with the /bug command.
   See the help with the /help command.

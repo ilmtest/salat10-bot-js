@@ -1,6 +1,6 @@
 {
   "name": "salat10",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Backend to calculate prayer times",
   "main": "server.js",
   "scripts": {
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/ilmtest/salat10-js#readme",
   "dependencies": {
-    "@sentry/node": "^5.12.3",
+    "@sentry/node": "^5.12.4",
     "adhan": "^3.0.0",
     "analytics-node": "^3.4.0-beta.1",
     "axios": "^0.19.2",
