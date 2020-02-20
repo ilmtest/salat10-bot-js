@@ -29,10 +29,15 @@ const calculate = (date, latitude, longitude) => {
 
 const calculateForCoordinates = (latitude, longitude) => {
   const now = new Date();
+  now.setHours(0);
+  now.setMinutes(0);
+  now.setSeconds(0);
+  now.setMilliseconds(0);
+
   const today = calculate(now, Number(latitude), Number(longitude));
-  // not sure why we have to put 48 instead of 24
+
   const tomorrow = calculate(
-    new Date(now.getTime() + 48 * 3600 * 1000),
+    new Date(now.getTime() + 24 * 3600 * 1000),
     Number(latitude),
     Number(longitude)
   );
