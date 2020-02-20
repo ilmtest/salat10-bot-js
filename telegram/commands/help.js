@@ -3,11 +3,11 @@ const fs = require("fs");
 
 const helpCommand = async bot => {
   bot.onText(/^\/help$/, message => {
-    const buffer = fs.readFileSync("res/tutorial.gif");
+    const buffer = fs.readFileSync("res/tutorial2.gif");
 
     console.log("Replying to user with help command");
     bot.sendChatAction(message.chat.id, "upload_video");
-    const result = bot.sendAnimation(
+    const result = await bot.sendAnimation(
       message.chat.id,
       buffer,
       {
