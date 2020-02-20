@@ -3,13 +3,13 @@ const fs = require("fs");
 
 const helpCommand = bot => {
   bot.onText(/^\/help$/, async message => {
-    const buffer = fs.readFileSync("res/tutorial.gif");
+    //const buffer = fs.readFileSync("res/tutorial.gif");
 
     console.log("Replying to user with help command");
     bot.sendChatAction(message.chat.id, "upload_video");
-    const result = await bot.sendAnimation(
+    bot.sendAnimation(
       message.chat.id,
-      buffer,
+      "https://s5.gifyu.com/images/tutorial.gif",
       {
         caption: `Note that Salat10 uses the nautical twilight to calculate the Fajr and ʿIshāʾ timings instead of the conventional varying angles that are used by the various organizations around the world.
 
@@ -22,7 +22,6 @@ Also it is important to always know that the origin of the matter is to observe 
         reply_to_message_id: message.message_id
       }
     );
-    console.log("*** result", result);
 
     analytics.track({
       userId: message.from.id.toString(),
