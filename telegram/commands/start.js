@@ -6,14 +6,14 @@ const startCommand = bot => {
     bot.sendMessage(
       message.chat.id,
       `\`${process.env.npm_package_name} v${process.env.npm_package_version}\` by @ilmtest
-  
-  Send this bot an address using /address, or attach your location to it and it will reply back with the prayer times for that location.
-  
-  Submit bug reports with the /bug command.
-  See the help with the /help command.
-  
-  Note: Please read the Help before filing any bugs of incorrect timings.
-  `,
+
+Send this bot an address using /address, or attach your location to it and it will reply back with the prayer times for that location.
+For example: /address 100 Queen St Toronto
+
+Submit bug reports with the /bug command.
+See the help with the /help command.
+
+Note: Please read the Help before filing any bugs of incorrect timings.`,
       {
         reply_to_message_id: message.message_id,
         reply_markup: {
