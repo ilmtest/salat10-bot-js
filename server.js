@@ -11,13 +11,19 @@ const {
   NODE_ENV
 } = process.env;
 
-const Sentry = require("@sentry/node");
+const IS_DEV = NODE_ENV === "development";
+const Sentry = require("./utils/sentry");
+
 Sentry.init({ dsn: SENTRY_DSN });
 
 const bot = new TelegramBot(BOT_API_KEY, {
-  polling: NODE_ENV === "development"
+  polling: IS_DEV
 });
-bot.setWebHook(`${HEROKU_APP_URL}/bot${BOT_API_KEY}`);
+
+if (!IS_DEV) {
+  bot.setWebHook(`${HEROKU_APP_URL}/bot${BOT_API_KEY}`);
+}
+
 bot.on("error", error => Sentry.captureException(error));
 bot.on("webhook_error", error => Sentry.captureException(error));
 
@@ -25,7 +31,7 @@ const app = express();
 app.use(require("helmet")());
 app.use(express.json()); // body parser
 
-if (NODE_ENV === "development") {
+if (IS_DEV) {
   app.use(require("morgan")("dev"));
 }
 
@@ -50,7 +56,7 @@ const server = app.listen(
 // handle unhandled promise rejections
 process.on("unhandledRejection", err => {
   Sentry.captureException(err);
-  console.log(`Error: ${err.message}`);
+  console.error(`Error: ${err.message}`);
   server.close(() => process.exit(1));
 });
 

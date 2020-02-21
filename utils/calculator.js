@@ -29,18 +29,18 @@ const calculate = (date, latitude, longitude) => {
 
 const calculateForCoordinates = (latitude, longitude) => {
   const now = new Date();
-  now.setHours(0);
-  now.setMinutes(0);
-  now.setSeconds(0);
-  now.setMilliseconds(0);
+  now.setUTCHours(12); // we set it to 12 since we want it for that specific day, so we should get a good average
+  now.setUTCMinutes(0);
+  now.setUTCSeconds(0);
+  now.setUTCMilliseconds(0);
 
   const today = calculate(now, Number(latitude), Number(longitude));
 
-  const tomorrow = calculate(
-    new Date(now.getTime() + 24 * 3600 * 1000),
-    Number(latitude),
-    Number(longitude)
-  );
+  const next = new Date(now.getTime());
+  next.setUTCHours(12); // for some reason by default it sets it to 5AM
+  next.setUTCDate(next.getUTCDate() + 1);
+
+  const tomorrow = calculate(next, Number(latitude), Number(longitude));
 
   const halfNight = new Date(
     (today.maghrib.getTime() + tomorrow.fajr.getTime()) / 2
