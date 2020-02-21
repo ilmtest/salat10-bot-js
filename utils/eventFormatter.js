@@ -1,18 +1,29 @@
 const axios = require("axios");
 const SalatEvents = require("../utils/SalatEvents");
 
-const getTimeZone = async (latitude, longitude) => {
+const getTimeZone = async (lat, lng, t) => {
   const {
-    data: { zoneName }
-  } = await axios.get(
-    `https://api.timezonedb.com/v2.1/get-time-zone?key=${process.env.TIMEZONE_API_KEY}&format=json&by=position&lat=${latitude}&lng=${longitude}`
-  );
+    data: { zoneName, dst }
+  } = await axios.get(`https://api.timezonedb.com/v2.1/get-time-zone`, {
+    params: {
+      key: process.env.TIMEZONE_API_KEY,
+      format: "json",
+      by: "position",
+      lat,
+      lng,
+      time: t.toString()
+    }
+  });
 
-  return zoneName;
+  return { zoneName, dst };
 };
 
-const formatTime = (t, timeZone) => {
-  const time = new Date(t).toLocaleTimeString("en-US", {
+const formatTime = (t, timeZone, dst) => {
+  const offset = parseInt(dst, 10);
+  const date = new Date(t);
+  date.setUTCHours(date.getUTCHours() + offset);
+
+  const time = date.toLocaleTimeString("en-US", {
     timeZone,
     hour: "numeric",
     minute: "2-digit",
@@ -36,14 +47,18 @@ const formatDate = result =>
  * @param {*} longitude
  */
 const formatAsText = async (calculationResult, latitude, longitude) => {
-  const timeZone = await getTimeZone(latitude, longitude);
+  const { timeZone, dst } = await getTimeZone(
+    latitude,
+    longitude,
+    calculationResult.fajr
+  );
 
   const formatted = Object.entries(calculationResult)
     // sort the events from earliest to latest (to sort from fajr - isha)
     .sort(([_, value], [__, nextValue]) => value - nextValue)
     // transform from keys to actual event names
     .map(([event, t]) => {
-      return `${SalatEvents[event]}: ${formatTime(t, timeZone)}`;
+      return `${SalatEvents[event]}: ${formatTime(t, timeZone, dst)}`;
     });
   formatted.unshift(formatDate(calculationResult), "");
 
@@ -57,7 +72,11 @@ const formatAsText = async (calculationResult, latitude, longitude) => {
  * @param {*} longitude
  */
 const formatAsObject = async (calculationResult, latitude, longitude) => {
-  const timeZone = await getTimeZone(latitude, longitude);
+  const { timeZone, dst } = await getTimeZone(
+    latitude,
+    longitude,
+    calculationResult.fajr
+  );
 
   return (
     Object.entries(calculationResult)
@@ -69,7 +88,7 @@ const formatAsObject = async (calculationResult, latitude, longitude) => {
             ...prev,
             [event]: {
               label: SalatEvents[event],
-              time: formatTime(t, timeZone)
+              time: formatTime(t, timeZone, dst)
             }
           };
         },
