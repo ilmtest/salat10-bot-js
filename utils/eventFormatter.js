@@ -11,8 +11,15 @@ const getTimeZone = async (latitude, longitude) => {
   return zoneName;
 };
 
-const formatTime = (t, timeZone) =>
-  new Date(t).toLocaleString("en-US", { timeZone }).split(", ")[1];
+const formatTime = (t, timeZone) => {
+  const time = new Date(t).toLocaleTimeString("en-US", {
+    timeZone,
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  });
+  return time;
+};
 
 const formatDate = result =>
   new Date(result.fajr).toLocaleDateString("en-US", {

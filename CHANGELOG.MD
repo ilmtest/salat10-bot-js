@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2020-01-20
+
+### Changed
+
+- Fix logic for calculations so that it takes in the current date with UTC time, and does the calculations for tomorrow's date using UTC since sometimes Asr time date would be later than Last 1/3 night date.
+- Don't show seconds during time formatting.
+- Use native functions to format time instead of doing string manipulation.
+- Don't load Sentry and set webhook in development mode.
+
 ## [1.0.1] - 2020-01-20
 
 ### Changed
