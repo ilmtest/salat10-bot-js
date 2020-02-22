@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon server",
     "start": "NODE_ENV=production node server",
-    "test": "jest --watch"
+    "test": "jest",
+    "prepush": "npm test"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
+    "hat": "0.0.3",
     "jest": "^25.1.0",
     "nodemon": "^2.0.1"
   }

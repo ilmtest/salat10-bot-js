@@ -28,6 +28,7 @@ const addressHandler = bot => {
       console.log("Processing coordinates for reversed address");
       const result = calculator(latitude, longitude);
       const data = await formatAsText(result, latitude, longitude);
+
       bot.sendMessage(chatId, data, {
         reply_to_message_id: message_id
       });

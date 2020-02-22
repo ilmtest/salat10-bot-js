@@ -11,7 +11,7 @@ const {
   NODE_ENV
 } = process.env;
 
-const IS_DEV = NODE_ENV === "development";
+const IS_DEV = NODE_ENV !== "production";
 const Sentry = require("./utils/sentry");
 
 Sentry.init({ dsn: SENTRY_DSN });
