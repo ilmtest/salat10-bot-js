@@ -27,8 +27,7 @@ const calculate = (date, latitude, longitude) => {
   };
 };
 
-const calculateForCoordinates = (latitude, longitude) => {
-  const now = new Date();
+const calculateForCoordinates = (latitude, longitude, now = new Date()) => {
   now.setUTCHours(12); // we set it to 12 since we want it for that specific day, so we should get a good average
   now.setUTCMinutes(0);
   now.setUTCSeconds(0);

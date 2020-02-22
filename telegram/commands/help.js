@@ -1,5 +1,4 @@
 const analytics = require("../../utils/analytics");
-const fs = require("fs");
 
 const helpCommand = bot => {
   bot.onText(/^\/help$/, message => {

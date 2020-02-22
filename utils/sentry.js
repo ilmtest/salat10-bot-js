@@ -4,5 +4,5 @@ const devSentry = {
 };
 
 const Sentry =
-  process.env.NODE_ENV === "development" ? devSentry : require("@sentry/node");
+  process.env.NODE_ENV !== "production" ? devSentry : require("@sentry/node");
 module.exports = Sentry;

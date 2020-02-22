@@ -1,11 +1,13 @@
 {
   "name": "salat10",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Backend to calculate prayer times",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server",
-    "start": "NODE_ENV=production node server"
+    "start": "NODE_ENV=production node server",
+    "test": "jest",
+    "prepush": "npm test"
   },
   "repository": {
     "type": "git",
@@ -45,6 +47,8 @@
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
+    "hat": "0.0.3",
+    "jest": "^25.1.0",
     "nodemon": "^2.0.1"
   }
 }
