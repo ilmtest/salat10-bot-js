@@ -1,54 +1,54 @@
 {
-  "name": "salat10",
-  "version": "1.0.3",
-  "description": "Backend to calculate prayer times",
-  "main": "server.js",
-  "scripts": {
-    "dev": "nodemon server",
-    "start": "NODE_ENV=production node server",
-    "test": "jest",
-    "prepush": "npm test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ilmtest/salat10-js.git"
-  },
-  "keywords": [
-    "ilmtest",
-    "islam",
-    "muslim",
-    "salafi",
-    "salaf",
-    "javascript",
-    "es6",
-    "node",
-    "nodejs",
-    "express",
-    "developer",
-    "development"
-  ],
-  "author": "IlmTest",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ilmtest/salat10-js/issues"
-  },
-  "homepage": "https://github.com/ilmtest/salat10-js#readme",
-  "dependencies": {
-    "@sentry/node": "^5.12.4",
-    "adhan": "^3.0.0",
-    "analytics-node": "^3.4.0-beta.1",
-    "axios": "^0.19.2",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "helmet": "^3.21.2",
-    "morgan": "^1.9.1",
-    "node-geocoder": "^3.25.0",
-    "node-telegram-bot-api": "^0.40.0",
-    "suncalc": "^1.8.0"
-  },
-  "devDependencies": {
-    "hat": "0.0.3",
-    "jest": "^25.1.0",
-    "nodemon": "^2.0.1"
-  }
+    "name": "salat10-bot",
+    "version": "1.1.0",
+    "description": "Telegram bot to calculate prayer times",
+    "main": "server.js",
+    "scripts": {
+        "clean": "git branch | grep -v '^*' | xargs git branch -D",
+        "start": "ENV=dev nodemon index",
+        "test": "NTBA_FIX_319=1 CONTACT_CHAT_ID=123 jest",
+        "prepush": "npm test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ilmtest/salat10-bot-js.git"
+    },
+    "keywords": [
+        "ilmtest",
+        "islam",
+        "muslim",
+        "salafi",
+        "salaf",
+        "javascript",
+        "es6",
+        "node",
+        "nodejs",
+        "express",
+        "developer",
+        "development"
+    ],
+    "author": "IlmTest",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ilmtest/salat10-bot-js/issues"
+    },
+    "homepage": "https://github.com/ilmtest/salat10-bot-js#readme",
+    "dependencies": {
+        "@ilmtest/salat10-sdk": "file:../salat10-sdk",
+        "@sentry/node": "^5.15.2",
+        "analytics-node": "^3.4.0-beta.1",
+        "dotenv": "^8.2.0",
+        "node-telegram-bot-api": "^0.40.0"
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.1.0",
+        "eslint-config-prettier": "^6.10.1",
+        "eslint-plugin-import": "^2.20.1",
+        "eslint-plugin-prettier": "^3.1.2",
+        "hat": "0.0.3",
+        "jest": "^25.2.3",
+        "nodemon": "^2.0.1",
+        "prettier": "^2.0.2"
+    }
 }
