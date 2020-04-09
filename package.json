@@ -1,12 +1,13 @@
 {
     "name": "salat10-bot",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Telegram bot to calculate prayer times",
     "scripts": {
         "clean": "git branch | grep -v '^*' | xargs git branch -D",
         "start": "ENV=dev nodemon index",
         "test": "NTBA_FIX_319=1 CONTACT_CHAT_ID=123 jest",
-        "prepush": "npm test"
+        "prepush": "npm test",
+        "zip": "rm -rf nodejs.zip salat10-bot-js.zip && zip -9 -r salat10-bot-js.zip index.js package.json src && mkdir -p nodejs && cp -R node_modules nodejs/node_modules && zip -9 -r nodejs.zip nodejs && rm -rf nodejs"
     },
     "repository": {
         "type": "git",
@@ -33,7 +34,7 @@
     },
     "homepage": "https://github.com/ilmtest/salat10-bot-js#readme",
     "dependencies": {
-        "@ilmtest/salat10-sdk": "^1.0.0",
+        "@ilmtest/salat10-sdk": "^1.0.1",
         "@sentry/node": "^5.15.2",
         "analytics-node": "^3.4.0-beta.1",
         "dotenv": "^8.2.0",
