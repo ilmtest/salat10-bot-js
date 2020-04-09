@@ -18,3 +18,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+nodejs.zip
+salat10-bot-js.zip
