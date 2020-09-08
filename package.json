@@ -34,21 +34,21 @@
     },
     "homepage": "https://github.com/ilmtest/salat10-bot-js#readme",
     "dependencies": {
-        "@ilmtest/salat10-sdk": "^1.0.1",
-        "@sentry/node": "^5.15.2",
-        "analytics-node": "^3.4.0-beta.1",
-        "dotenv": "^8.2.0",
-        "node-telegram-bot-api": "^0.40.0"
+        "@ilmtest/salat10-sdk": "1.0.1",
+        "@sentry/node": "5.22.3",
+        "analytics-node": "3.4.0-beta.2",
+        "dotenv": "8.2.0",
+        "node-telegram-bot-api": "0.40.0"
     },
     "devDependencies": {
-        "eslint": "^6.8.0",
-        "eslint-config-airbnb-base": "^14.1.0",
-        "eslint-config-prettier": "^6.10.1",
-        "eslint-plugin-import": "^2.20.1",
-        "eslint-plugin-prettier": "^3.1.2",
+        "eslint": "6.8.0",
+        "eslint-config-airbnb-base": "14.2.0",
+        "eslint-config-prettier": "6.11.0",
+        "eslint-plugin-import": "2.22.0",
+        "eslint-plugin-prettier": "3.1.4",
         "hat": "0.0.3",
-        "jest": "^25.2.3",
-        "nodemon": "^2.0.1",
-        "prettier": "^2.0.2"
+        "jest": "25.5.4",
+        "nodemon": "2.0.4",
+        "prettier": "2.1.1"
     }
 }
