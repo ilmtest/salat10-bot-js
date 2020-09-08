@@ -6,7 +6,7 @@
         "start": "ENV=dev nodemon index",
         "test": "NTBA_FIX_319=1 jest",
         "prepush": "npm test",
-        "zip": "rm -rf nodejs.zip salat10-bot-js.zip && zip -9 -r salat10-bot-js.zip index.js package.json src && mkdir -p nodejs && cp -R node_modules nodejs/node_modules && rm -rf nodejs/src/.DS_Store nodejs/node_modules/jest* nodejs/node_modules/eslint* nodejs/node_modules/expect nodejs/node_modules/hat nodejs/node_modules/nodemon nodejs/node_modules/prettier* nodejs/node_modules/@sinonjs* nodejs/node_modules/instanbul* nodejs/node_modules/istanbul-* nodejs/node_modules/v8-to-istanbul nodejs/node_modules/@jest nodejs/node_modules/@istanbuljs && zip -9 -r nodejs.zip nodejs && rm -rf nodejs"
+        "build": "rm -rf nodejs.zip salat10-bot-js.zip && zip -9 -r salat10-bot-js.zip index.js package.json src && mkdir -p nodejs && cp -R node_modules nodejs/node_modules && rm -rf nodejs/src/.DS_Store nodejs/node_modules/jest* nodejs/node_modules/eslint* nodejs/node_modules/expect nodejs/node_modules/hat nodejs/node_modules/nodemon nodejs/node_modules/prettier* nodejs/node_modules/@sinonjs* nodejs/node_modules/instanbul* nodejs/node_modules/istanbul-* nodejs/node_modules/v8-to-istanbul nodejs/node_modules/@jest nodejs/node_modules/@istanbuljs && zip -9 -r nodejs.zip nodejs && rm -rf nodejs"
     },
     "repository": {
         "type": "git",
