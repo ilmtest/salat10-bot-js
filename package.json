@@ -1,13 +1,12 @@
 {
     "name": "salat10-bot",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "description": "Telegram bot to calculate prayer times",
     "scripts": {
-        "clean": "git branch | grep -v '^*' | xargs git branch -D",
         "start": "ENV=dev nodemon index",
-        "test": "NTBA_FIX_319=1 CONTACT_CHAT_ID=123 jest",
+        "test": "NTBA_FIX_319=1 jest",
         "prepush": "npm test",
-        "zip": "rm -rf nodejs.zip salat10-bot-js.zip && zip -9 -r salat10-bot-js.zip index.js package.json src && mkdir -p nodejs && cp -R node_modules nodejs/node_modules && zip -9 -r nodejs.zip nodejs && rm -rf nodejs"
+        "zip": "rm -rf nodejs.zip salat10-bot-js.zip && zip -9 -r salat10-bot-js.zip index.js package.json src && mkdir -p nodejs && cp -R node_modules nodejs/node_modules && rm -rf nodejs/src/.DS_Store nodejs/node_modules/jest* nodejs/node_modules/eslint* nodejs/node_modules/expect nodejs/node_modules/hat nodejs/node_modules/nodemon nodejs/node_modules/prettier* nodejs/node_modules/@sinonjs* nodejs/node_modules/instanbul* nodejs/node_modules/istanbul-* nodejs/node_modules/v8-to-istanbul nodejs/node_modules/@jest nodejs/node_modules/@istanbuljs && zip -9 -r nodejs.zip nodejs && rm -rf nodejs"
     },
     "repository": {
         "type": "git",
@@ -34,10 +33,12 @@
     },
     "homepage": "https://github.com/ilmtest/salat10-bot-js#readme",
     "dependencies": {
-        "@ilmtest/salat10-sdk": "1.0.1",
         "@sentry/node": "5.22.3",
+        "adhan": "4.0.1",
         "analytics-node": "3.4.0-beta.2",
+        "axios": "^0.20.0",
         "dotenv": "8.2.0",
+        "node-geocoder": "^3.27.0",
         "node-telegram-bot-api": "0.50.0"
     },
     "devDependencies": {

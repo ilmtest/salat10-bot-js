@@ -8,7 +8,7 @@ const startCommand = (bot) => {
 Send this bot an address using /address, or attach your location to it and it will reply back with the prayer times for that location.
 For example: /address 100 Queen St Toronto
 
-Submit bug reports with the /bug command.
+Submit bug reports to: ${global.bugs_url}.
 See the help with the /help command.
 
 Note: Please read the Help before filing any bugs of incorrect timings.`,

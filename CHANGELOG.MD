@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 2020-09-08
+
+### Fixed
+
+-   [Remove bugs command and rely on github instead](https://github.com/ilmtest/salat10-bot-js/issues/16)
+-   [Replace salat10-sdk with adhan-js](https://github.com/ilmtest/salat10-bot-js/issues/22)
+-   Upgrade `jest` to `v26.4.2` and `eslint` to `v7.8.1`.
+
 ## [1.1.1] - 2020-04-07
 
 ### Fixed

@@ -18,9 +18,11 @@ Sentry.init({
         return event;
     },
 });
+
 global.npm_package_version = myPackage.version;
 global.npm_package_name = myPackage.name;
 global.npm_package_author = myPackage.author;
+global.bugs_url = myPackage.bugs.url;
 
 console.log(`Starting v${global.npm_package_version} of ${global.npm_package_name}, isDevMode: ${isDevMode}`);
 
@@ -35,9 +37,9 @@ const initialize = async () => {
         require(`./src/middlewares/${middleware}`)(bot);
     });
 
-    ['address', 'start', 'help', 'bug'].forEach((command) => require(`./src/commands/${command}`)(bot));
+    ['address', 'start', 'help'].forEach((command) => require(`./src/commands/${command}`)(bot));
 
-    ['location', 'bugReply'].forEach((handler) => require(`./src/handlers/${handler}`)(bot));
+    ['location'].forEach((handler) => require(`./src/handlers/${handler}`)(bot));
 
     console.log('Initilization complete');
 
