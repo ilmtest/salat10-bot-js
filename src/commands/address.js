@@ -1,4 +1,6 @@
-const { calculate, formatAsText, reverseAddressLookup } = require('@ilmtest/salat10-sdk');
+const reverseAddressLookup = require('../utils/reverseLookup');
+const calculate = require('../utils/calculator');
+const SalatNames = require('../utils/SalatNames');
 
 const addressHandler = (bot) => {
     bot.onText(/^\/address (.+)/, async (message, [, text]) => {
@@ -9,15 +11,14 @@ const addressHandler = (bot) => {
         bot.sendChatAction(chatId, 'typing');
         console.log(`Received new address: (${text})`);
 
-        const { latitude, longitude, city } = await reverseAddressLookup(text);
+        const { latitude, longitude, city, countryCode } = await reverseAddressLookup(text);
         console.log(`Geocoded address: (${latitude}, ${longitude}, ${city})`);
 
         if (latitude && longitude && city) {
             console.log('Processing coordinates for reversed address');
-            const result = calculate(latitude, longitude);
-            const data = await formatAsText(result, latitude, longitude);
+            const result = await calculate(SalatNames, latitude, longitude);
 
-            bot.sendMessage(chatId, data, {
+            bot.sendMessage(chatId, `${city}, ${countryCode}\n\n${result}`, {
                 reply_to_message_id: messageId,
             });
         } else {

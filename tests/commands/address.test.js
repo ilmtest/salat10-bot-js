@@ -1,10 +1,13 @@
 const TelegramBot = require('node-telegram-bot-api');
 const hat = require('hat');
-const sdk = require('@ilmtest/salat10-sdk');
+const calculate = require('../../src/utils/calculator');
+const reverseLookup = require('../../src/utils/reverseLookup');
 const address = require('../../src/commands/address');
+const SalatNames = require('../../src/utils/SalatNames');
 const { pause } = require('../../src/utils/testing');
 
-jest.mock('@ilmtest/salat10-sdk');
+jest.mock('../../src/utils/calculator');
+jest.mock('../../src/utils/reverseLookup');
 
 describe('address', () => {
     let bot;
@@ -14,9 +17,8 @@ describe('address', () => {
     beforeEach(() => {
         bot = new TelegramBot(hat());
 
-        sdk.calculate.mockRestore();
-        sdk.formatAsText.mockRestore();
-        sdk.reverseAddressLookup.mockRestore();
+        calculate.mockRestore();
+        reverseLookup.mockRestore();
 
         sendChatActionSpy = jest.spyOn(bot, 'sendChatAction');
         sendMessageSpy = jest.spyOn(bot, 'sendMessage');
@@ -67,7 +69,7 @@ describe('address', () => {
             it('should not calculate unless latitude, longitude and city are all found', async () => {
                 address(bot);
 
-                sdk.reverseAddressLookup.mockResolvedValue(geo);
+                reverseLookup.mockResolvedValue(geo);
 
                 const message = {
                     message_id: hat(),
@@ -88,22 +90,23 @@ describe('address', () => {
                 expect(sendChatActionSpy).toHaveBeenCalledWith(message.chat.id, 'typing');
 
                 expect(sendMessageSpy).toHaveBeenCalledTimes(1);
-                expect(sdk.calculate).not.toHaveBeenCalled();
+                expect(calculate).not.toHaveBeenCalled();
             });
         });
     });
 
     it('should send calculations', async () => {
-        const latitude = hat();
-        const longitude = hat();
-        const city = hat();
-        sdk.reverseAddressLookup.mockResolvedValue({ latitude, longitude, city });
+        const data = {
+            latitude: hat(),
+            longitude: hat(),
+            city: hat(),
+            countryCode: hat(),
+        };
 
-        const calculationResult = hat();
-        sdk.calculate.mockImplementation(() => calculationResult);
+        reverseLookup.mockResolvedValue(data);
 
         const formattedText = hat();
-        sdk.formatAsText.mockResolvedValue(formattedText);
+        calculate.mockResolvedValue(formattedText);
 
         address(bot);
 
@@ -127,20 +130,19 @@ describe('address', () => {
         expect(sendChatActionSpy).toHaveBeenCalledTimes(1);
         expect(sendChatActionSpy).toHaveBeenCalledWith(message.chat.id, 'typing');
 
-        expect(sdk.reverseAddressLookup).toHaveBeenCalledTimes(1);
-        expect(sdk.reverseAddressLookup).toHaveBeenCalledWith(location);
+        expect(reverseLookup).toHaveBeenCalledTimes(1);
+        expect(reverseLookup).toHaveBeenCalledWith(location);
 
-        expect(sdk.calculate).toHaveBeenCalledTimes(1);
-        expect(sdk.calculate).toHaveBeenCalledWith(latitude, longitude);
+        expect(calculate).toHaveBeenCalledTimes(1);
+        expect(calculate).toHaveBeenCalledWith(SalatNames, data.latitude, data.longitude);
 
-        expect(sdk.formatAsText).toHaveBeenCalledTimes(1);
-        expect(sdk.formatAsText).toHaveBeenCalledWith(calculationResult, latitude, longitude);
+        const text = `${data.city}, ${data.countryCode}\n\n${formattedText}`;
 
         expect(sendMessageSpy).toHaveBeenCalledTimes(1);
-        expect(sendMessageSpy).toHaveBeenCalledWith(message.chat.id, formattedText, {
+        expect(sendMessageSpy).toHaveBeenCalledWith(message.chat.id, text, {
             chat_id: message.chat.id,
             reply_to_message_id: message.message_id,
-            text: formattedText,
+            text,
         });
     });
 });
