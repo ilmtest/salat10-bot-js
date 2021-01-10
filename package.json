@@ -38,7 +38,7 @@
     "dependencies": {
         "@sentry/node": "5.22.3",
         "adhan": "4.0.1",
-        "analytics-node": "3.4.0-beta.2",
+        "analytics-node": "3.5.0",
         "axios": "0.20.0",
         "dotenv": "8.2.0",
         "node-geocoder": "3.27.0",
