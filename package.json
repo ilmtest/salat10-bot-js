@@ -36,7 +36,7 @@
     },
     "homepage": "https://github.com/ilmtest/salat10-bot-js#readme",
     "dependencies": {
-        "@sentry/node": "5.22.3",
+        "@sentry/node": "6.7.0",
         "adhan": "4.0.1",
         "analytics-node": "3.4.0-beta.2",
         "axios": "0.20.0",
